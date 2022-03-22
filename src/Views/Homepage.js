@@ -81,7 +81,7 @@ const Homepage = () => {
             <br />
             {connected ? <>
                 <h2>Account: {address}</h2>
-                <h2>Balance: {balance / 10^18}</h2>
+                <h2>Balance: {(parseInt(balance) / 10**18).toFixed(2)}</h2>
                 <br />
                 {farms.map((item, i) => <Farms farm={item} account={address}/>)}
                 

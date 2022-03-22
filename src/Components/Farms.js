@@ -21,6 +21,7 @@ const Farms = ({ farm, account }) => {
     const [reward, setReward] = useState();
     const [acc, setAcc] = useState();
     const [pending, setPending] = useState();
+    const [depositAmount, setDepositAmount] = useState(0);
 
     const initData = async () => {
         const tokenContract = await loadFarms();
@@ -64,7 +65,7 @@ const Farms = ({ farm, account }) => {
     const handleDeposit = async () => {
         console.log('depositing for: ', farm.address)
         const tokenContract = await new window.web3.eth.Contract(MasterChefAbi, MasterChef);
-        const deposit = await tokenContract.methods.deposit(farm.pid, '5000000000000000000').send({from: account});
+        const deposit = await tokenContract.methods.deposit(farm.pid, depositAmount.toString()).send({from: account});
         console.log(deposit);
     }
 
@@ -97,6 +98,7 @@ const Farms = ({ farm, account }) => {
                     onClick={() => handleApprove()}>
                     Approve
                 </button>
+                <input type="number" placeholder='amount' onChange={(e) => setDepositAmount(e.target.value)}/>
                 <button
                     onClick={() => handleDeposit()}>
                     Deposit
